@@ -252,7 +252,6 @@ DoubleType& DoubleType::divide(const IntType& it)
     if (*it.value == 0)
     {
         std::cout << ("Math error: Attempted to divide by Zero\n") << std::endl;
-        return *this;
     }
     
     *value /= *it.value;
