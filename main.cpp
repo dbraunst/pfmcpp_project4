@@ -41,7 +41,8 @@ struct FloatType
 {
     FloatType(float); 
     //FIXME THIS LEAKS!!!! Where is your destructor!??!!
-    ~FloatType(){
+    ~FloatType()
+    {
         delete value;
         value = nullptr;
     }
@@ -94,7 +95,8 @@ struct DoubleType
 {
     DoubleType(double); 
     //FIXME THIS LEAKS!!!! Where is your destructor!??!!
-    ~DoubleType(){
+    ~DoubleType()
+    {
         delete value;
         value = nullptr;
     }
@@ -148,7 +150,8 @@ struct IntType
 {
     IntType(int); 
     //FIXME THIS LEAKS!!!! Where is your destructor!??!!
-    ~IntType(){
+    ~IntType()
+    {
         delete value;
         value = nullptr;
     }
