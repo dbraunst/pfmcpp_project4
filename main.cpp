@@ -39,7 +39,7 @@ struct DoubleType;
  
 struct FloatType
 {
-    FloatType(float);
+    FloatType(float); FIXME THIS LEAKS!!!! Where is your destructor!??!!
 
     FloatType& add(float rhs);
     FloatType& subtract(float rhs);
@@ -87,7 +87,7 @@ FloatType& FloatType::divide(float rhs)
 
 struct DoubleType
 {
-    DoubleType(double);
+    DoubleType(double); FIXME THIS LEAKS!!!! Where is your destructor!??!!
 
     DoubleType& add(double rhs);
     DoubleType& subtract(double rhs);
@@ -136,7 +136,7 @@ DoubleType& DoubleType::divide(double rhs)
 
 struct IntType
 {
-    IntType(int);
+    IntType(int); FIXME THIS LEAKS!!!! Where is your destructor!??!!
 
     IntType& add(int rhs);
     IntType& subtract(int rhs);
