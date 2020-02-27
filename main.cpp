@@ -4,6 +4,8 @@ Project 4: Part 4 / 9
  Function/Constructor Overloading
 
  Create a branch named Part4
+ 
+ Do not delete your previous main. you will be adding to it.
 
     Build/Run often with this task to make sure you're not breaking the code with each step.
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
@@ -46,7 +48,9 @@ Project 4: Part 4 / 9
  
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
  
- Send me the the link to your repl.it in a DM on Slack
+Make a pull request after you make your first commit and pin the pull request link to our DM thread.
+
+send me a DM to check your pull request
 
  Wait for my code review.
  */
@@ -62,6 +66,8 @@ struct Point
 private:
     float x{0}, y{0};
 };
+
+
 
 #include <stdexcept>
 #include <iostream>
