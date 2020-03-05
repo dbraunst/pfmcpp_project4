@@ -40,7 +40,6 @@ Project 4: Part 4 / 9
      b) use the Point class in main and multiply some Point instances with your UDTs
      c) use the Point::toString() function to print out the results.
  
- 
  5) make sure it compiles without errors.
  
  You will need to use Forward Declaration and out-of-class definitions to complete this.
@@ -415,4 +414,30 @@ int main()
     std::cout << "6 ^ 3.0: " << it1.pow(dt2) << std::endl;
     std::cout << "1.7f ^ 3.5: " << ft1.pow(dt1) << std::endl;
     std::cout << "4 ^ 3.2f: " << it2.pow(ft2) << std::endl;
+
+    IntType it3(56);
+    IntType it4(6);
+    IntType it5(7);
+
+    DoubleType dt3(5.6);
+    DoubleType dt4(7.4);
+    
+    FloatType ft3(6.7f);
+    FloatType ft4(9.4f);
+
+    Point intp(it3, it4);
+    Point dblp(dt3, dt4);
+    Point fltp(ft3, ft4);
+
+    intp.toString();
+    intp.multiply(ft2);
+    intp.toString();
+
+    dblp.toString();
+    dblp.multiply(it5);
+    dblp.toString();
+
+    fltp.toString();
+    fltp.multiply(dt1);
+    fltp.toString();
 }
