@@ -359,6 +359,42 @@ IntType& IntType::pow(int arg)
     return *this;
 } 
 
+
+
+//Point Constructors
+Point::Point(FloatType& _x, FloatType& _y) : x(_x), y(_y) {}
+
+Point::Point(IntType& _x, IntType& _y)
+{
+    x = static_cast<float>(_x);
+    y = static_cast<float>(_y);
+}
+Point::Point(DoubleType& _x, DoubleType& _y)
+{
+    x = static_cast<float>(_x);
+    y = static_cast<float>(_y);
+}
+
+//multiply
+Point& Point::multiply(const IntType& m)
+{
+    x *= m;
+    y *= m;
+    return *this;
+}
+Point& Point::multiply(const FloatType& m)
+{
+    x *= m;
+    y *= m;
+    return *this;
+}
+Point& Point::multiply(const DoubleType& m)
+{
+    x *= static_cast<float>(m);
+    y *= static_cast<float>(m);
+    return *this;
+}
+
 void Point::toString()
 {
     std::cout << "X: " << x << ", Y:" << y << std::endl;
