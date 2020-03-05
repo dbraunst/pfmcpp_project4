@@ -1,3 +1,4 @@
+
 /*
 Project 4: Part 4 / 9
  Chapter 4 Part 7
@@ -51,23 +52,36 @@ Project 4: Part 4 / 9
  Wait for my code review.
  */
 
+
+
+#include <stdexcept>
+#include <iostream>
+#include <cmath>
+
+struct IntType;
+struct DoubleType;
+struct FloatType;
+
 struct Point
 {
+    Point(IntType& _x, IntType& _y);
+    Point(FloatType& _x, FloatType& _y);
+    Point(DoubleType& _x, DoubleType& _y);
+
     Point& multiply(float m)
     {
         x *= m;
         y *= m;
         return *this;
     }
+    Point& multiply(const IntType& m);
+    Point& multiply(const FloatType& m);
+    Point& multiply(const DoubleType& m);
+
+    void toString();
 private:
     float x{0}, y{0};
 };
-
-#include <stdexcept>
-#include <iostream>
-
-struct IntType;
-struct DoubleType;
  
 struct FloatType
 {
@@ -83,11 +97,17 @@ struct FloatType
     FloatType& subtract(float rhs);
     FloatType& multiply(float rhs);
     FloatType& divide(float rhs);
+    
+    FloatType& pow(const FloatType& arg);
+    FloatType& pow(const IntType& arg);
+    FloatType& pow(const DoubleType& arg);
+    FloatType& pow(float arg);
 
-    operator float(){return *value;}
+    operator float() const {return *value;}
 
 private:
     float* value;
+    FloatType& powInternal(float arg);
 };
 
 FloatType::FloatType(float newFloat)
@@ -126,7 +146,6 @@ FloatType& FloatType::divide(float rhs)
 struct DoubleType
 {
     DoubleType(double); 
-    //FIXME THIS LEAKS!!!! Where is your destructor!??!!
     ~DoubleType()
     {
         delete value;
@@ -138,10 +157,16 @@ struct DoubleType
     DoubleType& multiply(double rhs);
     DoubleType& divide(double rhs); 
 
-    operator double() { return *value; }
+    DoubleType& pow(const DoubleType& arg);
+    DoubleType& pow(const FloatType& arg);
+    DoubleType& pow(const IntType& arg);
+    DoubleType& pow(double arg);
+
+    operator double() const { return *value; }
 
 private:
     double* value = nullptr;
+    DoubleType& powInternal(double arg);
 };
 
 DoubleType::DoubleType(double newDouble)
@@ -193,10 +218,16 @@ struct IntType
     IntType& multiply(int rhs);
     IntType& divide(int rhs);
 
-    operator int(){return *value;}
+    IntType& pow(const IntType& arg);
+    IntType& pow(const DoubleType& arg);
+    IntType& pow(const FloatType& arg);
+    IntType& pow(int arg); 
+
+    operator int() const {return *value;}
 
 private:
     int* value = nullptr;
+    IntType& powInternal(int arg);
 };
 
 IntType::IntType(int newInt)
@@ -236,23 +267,116 @@ IntType& IntType::divide(int rhs)
     return *this;
 }
 
+//POW Function Implementations
+
+FloatType& FloatType::powInternal(float arg)
+{
+    *value = std::pow(*value, arg);
+    return *this;
+}
+
+FloatType& FloatType::pow(float arg)
+{
+    powInternal(arg);
+    return *this;
+}
+
+FloatType& FloatType::pow(const IntType& arg)
+{
+    powInternal(static_cast<float>(arg));
+    return *this;
+}
+
+FloatType& FloatType::pow(const DoubleType& arg)
+{
+    powInternal(static_cast<float>(arg));
+    return *this;
+}
+
+FloatType& FloatType::pow(const FloatType& arg)
+{
+    powInternal(arg);
+    return *this;
+}
+
+DoubleType& DoubleType::powInternal(double arg)
+{
+    *value = std::pow(*value, arg);
+    return *this;
+}
+
+DoubleType& DoubleType::pow(const DoubleType& arg)
+{
+    powInternal(arg);
+    return *this;
+}
+
+DoubleType& DoubleType::pow(const FloatType& arg)
+{
+    powInternal(static_cast<double>(arg));
+    return *this;
+}
+
+DoubleType& DoubleType::pow(const IntType& arg)
+{
+    powInternal(static_cast<double>(arg));
+    return *this;
+}
+
+DoubleType& DoubleType::pow(double arg)
+{
+    powInternal(arg);
+    return *this;
+}
+
+IntType& IntType::powInternal(int arg)
+{
+    *value = static_cast<int>(std::pow(*value, arg));
+    return *this;
+}
+
+IntType& IntType::pow(const IntType& arg)
+{
+    powInternal(arg);
+    return *this;
+}
+
+IntType& IntType::pow(const DoubleType& arg)
+{
+    powInternal(static_cast<int>(arg));
+    return *this;
+}
+
+IntType& IntType::pow(const FloatType& arg)
+{
+    powInternal(static_cast<int>(arg));
+    return *this;
+}
+
+IntType& IntType::pow(int arg)
+{
+    powInternal(arg);
+    return *this;
+} 
+
+void Point::toString()
+{
+    std::cout << "X: " << x << ", Y:" << y << std::endl;
+}
+
 #include <iostream>
 int main()
 {
     DoubleType dt1(3.5);
     DoubleType dt2(3.0);
-    DoubleType dt3(-2.5);
-    DoubleType dt4(7.2);
-    std::cout << "(((3.5 + 3.0) * -2.5) / 7.2) = " << dt1.add(dt2).multiply(dt3).divide(dt4)<< std::endl;
     
     FloatType ft1(1.7f);
-    FloatType ft2(3.0f);
-    FloatType ft3(2.0f);
-    std::cout << ft1 << "f + 3.0f = " << ft1.add(ft2) << "f * 2.0f = ";
-    std::cout << ft1.multiply(ft3) << "f.\n";
+    FloatType ft2(3.2f);
 
     IntType it1(6);
-    IntType it2(6);
-    IntType it3(47);
-    std::cout << "(" << it3 << " / 6) * 6 = " << it3.divide(it2).multiply(it1) << std::endl;
+    IntType it2(4);
+
+    std::cout << "6 ^ 3.0: " << it1.pow(dt2) << std::endl;
+    std::cout << "1.7f ^ 3.5: " << ft1.pow(dt1) << std::endl;
+    std::cout << "4 ^ 3.2f: " << it2.pow(ft2) << std::endl;
 }
