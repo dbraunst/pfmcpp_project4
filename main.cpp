@@ -280,26 +280,22 @@ FloatType& FloatType::powInternal(float arg)
 
 FloatType& FloatType::pow(float arg)
 {
-    powInternal(arg);
-    return *this;
+    return powInternal(arg);
 }
 
 FloatType& FloatType::pow(const IntType& arg)
 {
-    powInternal(static_cast<float>(arg));
-    return *this;
+    return powInternal(static_cast<float>(arg));
 }
 
 FloatType& FloatType::pow(const DoubleType& arg)
 {
-    powInternal(static_cast<float>(arg));
-    return *this;
+    return powInternal(static_cast<float>(arg));
 }
 
 FloatType& FloatType::pow(const FloatType& arg)
 {
-    powInternal(arg);
-    return *this;
+    return powInternal(arg);
 }
 
 DoubleType& DoubleType::powInternal(double arg)
@@ -310,20 +306,17 @@ DoubleType& DoubleType::powInternal(double arg)
 
 DoubleType& DoubleType::pow(const DoubleType& arg)
 {
-    powInternal(arg);
-    return *this;
+    return powInternal(arg);
 }
 
 DoubleType& DoubleType::pow(const FloatType& arg)
 {
-    powInternal(static_cast<double>(arg));
-    return *this;
+    return (powInternal(static_cast<double>(arg)));
 }
 
 DoubleType& DoubleType::pow(const IntType& arg)
 {
-    powInternal(static_cast<double>(arg));
-    return *this;
+    return (powInternal(static_cast<double>(arg)));
 }
 
 DoubleType& DoubleType::pow(double arg)
@@ -346,23 +339,18 @@ IntType& IntType::pow(const IntType& arg)
 
 IntType& IntType::pow(const DoubleType& arg)
 {
-    powInternal(static_cast<int>(arg));
-    return *this;
+    return (powInternal(static_cast<int>(arg)));
 }
 
 IntType& IntType::pow(const FloatType& arg)
 {
-    powInternal(static_cast<int>(arg));
-    return *this;
+    return (powInternal(static_cast<int>(arg)));
 }
 
 IntType& IntType::pow(int arg)
 {
-    powInternal(arg);
-    return *this;
-} 
-
-
+    return powInternal(arg);
+}
 
 //Point Constructors
 Point::Point(FloatType& _x, FloatType& _y) : x(_x), y(_y) {}
@@ -381,21 +369,15 @@ Point::Point(DoubleType& _x, DoubleType& _y)
 //multiply
 Point& Point::multiply(const IntType& m)
 {
-    x *= m;
-    y *= m;
-    return *this;
+    return (multiply(static_cast<float>(m)));
 }
 Point& Point::multiply(const FloatType& m)
 {
-    x *= m;
-    y *= m;
-    return *this;
+    return (multiply(static_cast<float>(m)));
 }
 Point& Point::multiply(const DoubleType& m)
 {
-    x *= static_cast<float>(m);
-    y *= static_cast<float>(m);
-    return *this;
+    return (multiply(static_cast<float>(m)));
 }
 
 void Point::toString()
