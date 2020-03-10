@@ -96,19 +96,13 @@ private:
  
 struct FloatType
 {
-    FloatType(float); 
-    //FIXME THIS LEAKS!!!! Where is your destructor!??!!
+    FloatType(float);
     ~FloatType()
     {
         delete value;
         value = nullptr;
     }
-    /*
-    FloatType& add(float rhs);
-    FloatType& subtract(float rhs);
-    FloatType& multiply(float rhs);
-    FloatType& divide(float rhs);
-    */
+    
     FloatType& operator+=(float RHS);
     FloatType& operator-=(float RHS);
     FloatType& operator*=(float RHS);
@@ -158,34 +152,7 @@ FloatType& FloatType::operator/=(float RHS)
     *value /= RHS;
     return *this;
 }
-/*
-FloatType& FloatType::add(float rhs)
-{
-    *value += rhs;
-    return *this;
-}
 
-FloatType& FloatType::subtract(float rhs)
-{
-    *value -= rhs;
-    return *this;
-}
-
-FloatType& FloatType::multiply(float rhs)
-{
-    *value *= rhs;
-    return *this;
-}
-
-FloatType& FloatType::divide(float rhs)
-{
-    if (rhs == 0.0f)
-    {
-        std::cout << ("Attempted to divide by Zero\n") << std::endl; 
-    }
-    *value /= rhs;
-    return *this;
-} */
 struct DoubleType
 {
     DoubleType(double); 
@@ -194,11 +161,6 @@ struct DoubleType
         delete value;
         value = nullptr;
     }
-
-    // DoubleType& add(double rhs);
-    // DoubleType& subtract(double rhs);
-    // DoubleType& multiply(double rhs);
-    // DoubleType& divide(double rhs); 
 
     DoubleType& operator+=(double RHS);
     DoubleType& operator-=(double RHS);
@@ -221,33 +183,6 @@ DoubleType::DoubleType(double newDouble)
 {
     value = new double(newDouble);    
 }
-/*
-DoubleType& DoubleType::add(double rhs)
-{
-    *value += rhs;
-    return *this;
-}
-DoubleType& DoubleType::subtract(double rhs)
-{
-    *value -= rhs;
-    return *this;
-}
-DoubleType& DoubleType::multiply(double rhs)
-{
-    *value *= rhs;
-    return *this;
-}
-DoubleType& DoubleType::divide(double rhs)
-{
-    if (rhs == 0.0)
-    {
-        std::cout << "Trying to divide by 0" << std::endl; 
-    }
-    
-    *value /= rhs;
-    return *this;
-}
-*/
 
 DoubleType& DoubleType::operator+=(double RHS)
 {
@@ -279,18 +214,12 @@ DoubleType& DoubleType::operator/=(double RHS)
 
 struct IntType
 {
-    IntType(int); 
-    //FIXME THIS LEAKS!!!! Where is your destructor!??!!
+    IntType(int);
     ~IntType()
     {
         delete value;
         value = nullptr;
     }
-
-    // IntType& add(int rhs);
-    // IntType& subtract(int rhs);
-    // IntType& multiply(int rhs);
-    // IntType& divide(int rhs);
 
     IntType& operator+=(int RHS);
     IntType& operator-=(int RHS);
@@ -313,37 +242,7 @@ IntType::IntType(int newInt)
 {
     value = new int(newInt);
 }
-/*
-IntType& IntType::add(int rhs)
-{
-    *value += rhs;
-    return *this;
-}
-IntType& IntType::subtract(int rhs)
-{
-    *value -= rhs;
-    return *this;
-}
-IntType& IntType::multiply(int rhs)
-{
-    *value *= rhs;
-    return *this;
-}
-IntType& IntType::divide(int rhs)
-{
-    if (rhs != 0)
-    {
-        *value /= rhs;
-    }
-    else 
-    {
-        std::cout << "Math Error: Tried to Divide by zero!" << std::endl; 
-    }
-    
-    return *this;
-}
-*/
-//POW Function Implementations
+
 IntType& IntType::operator+=(int RHS)
 {
     *value += RHS;
@@ -376,6 +275,8 @@ IntType& IntType::operator/=(int RHS)
     return *this;
 }
 
+
+//POW Function Implementations
 FloatType& FloatType::powInternal(float arg)
 {
     *value = std::pow(*value, arg);
@@ -470,18 +371,18 @@ Point::Point(DoubleType& _x, DoubleType& _y)
     y = static_cast<float>(_y);
 }
 
-//multiply
+//Point Implementations
 Point& Point::multiply(const IntType& m)
 {
-    return (multiply(static_cast<float>(m)));
+    return multiply(static_cast<float>(m));
 }
 Point& Point::multiply(const FloatType& m)
 {
-    return (multiply(static_cast<float>(m)));
+    return multiply(static_cast<float>(m));
 }
 Point& Point::multiply(const DoubleType& m)
 {
-    return (multiply(static_cast<float>(m)));
+    return multiply(static_cast<float>(m));
 }
 
 void Point::toString()
@@ -496,8 +397,6 @@ int main()
     DoubleType dt2(3.0);
     DoubleType dt3(-2.5);
     DoubleType dt4(7.2);
-    //std::cout << "(((3.5 + 3.0) * -2.5) / 7.2) = " << dt1.add(dt2).multiply(dt3).divide(dt4)<< std::endl;
-    //dt1 += 3.0;
     dt1 /= dt2;
     dt3 *= dt4;
     std::cout << "dt1: " << dt1 << " dt2: " << dt2 << std::endl;
@@ -505,8 +404,6 @@ int main()
     FloatType ft1(1.7f);
     FloatType ft2(3.0f);
     FloatType ft3(2.0f);
-    //std::cout << ft1 << "f + 3.0f = " << ft1.add(ft2) << "f * 2.0f = ";
-    //std::cout << ft1.multiply(ft3) << "f.\n";
     ft1 -= 2.0f;
     ft2 /= ft3;
     std::cout << "ft1:  " << ft1 << " ft2: " << ft2 << std::endl;
@@ -514,7 +411,6 @@ int main()
     IntType it1(6);
     IntType it2(6);
     IntType it3(47);
-    //std::cout << "(" << it3 << " / 6) * 6 = " << it3.divide(it2).multiply(it1) << std::endl;
     it1 *= it2;
     it3 += -25;
     std::cout << "it1: " << it1 << " it3: " << it3 << std::endl;
