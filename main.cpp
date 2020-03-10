@@ -36,13 +36,13 @@ namespace Example
         IntType intNum(2);
         IntType intNum2(6);
 
-        /* 
+         
         if you previously had a line like this demonstrating chaining:
             
             intNum.add(3).add(4.5f).divide(floatNum); 
 
         it should become:
-        //* /
+        
         intNum += 3;
         intNum += 4.5f;
         intNum /= floatNum;
@@ -103,12 +103,12 @@ struct FloatType
         delete value;
         value = nullptr;
     }
-
+    /*
     FloatType& add(float rhs);
     FloatType& subtract(float rhs);
     FloatType& multiply(float rhs);
     FloatType& divide(float rhs);
-
+    */
     FloatType& operator+=(float RHS);
     FloatType& operator-=(float RHS);
     FloatType& operator*=(float RHS);
@@ -151,6 +151,10 @@ FloatType& FloatType::operator*=(float RHS)
 
 FloatType& FloatType::operator/=(float RHS)
 {
+    if (RHS == 0.0f)
+    {
+        std::cout << ("Attempted to divide by Zero\n") << std::endl; 
+    }
     *value /= RHS;
     return *this;
 }
@@ -191,10 +195,15 @@ struct DoubleType
         value = nullptr;
     }
 
-    DoubleType& add(double rhs);
-    DoubleType& subtract(double rhs);
-    DoubleType& multiply(double rhs);
-    DoubleType& divide(double rhs); 
+    // DoubleType& add(double rhs);
+    // DoubleType& subtract(double rhs);
+    // DoubleType& multiply(double rhs);
+    // DoubleType& divide(double rhs); 
+
+    DoubleType& operator+=(double RHS);
+    DoubleType& operator-=(double RHS);
+    DoubleType& operator*=(double RHS);
+    DoubleType& operator/=(double RHS);
 
     DoubleType& pow(const DoubleType& arg);
     DoubleType& pow(const FloatType& arg);
@@ -212,25 +221,22 @@ DoubleType::DoubleType(double newDouble)
 {
     value = new double(newDouble);    
 }
-
+/*
 DoubleType& DoubleType::add(double rhs)
 {
     *value += rhs;
     return *this;
 }
-
 DoubleType& DoubleType::subtract(double rhs)
 {
     *value -= rhs;
     return *this;
 }
-
 DoubleType& DoubleType::multiply(double rhs)
 {
     *value *= rhs;
     return *this;
 }
-
 DoubleType& DoubleType::divide(double rhs)
 {
     if (rhs == 0.0)
@@ -239,6 +245,35 @@ DoubleType& DoubleType::divide(double rhs)
     }
     
     *value /= rhs;
+    return *this;
+}
+*/
+
+DoubleType& DoubleType::operator+=(double RHS)
+{
+    *value += RHS;
+    return *this;
+}
+
+DoubleType& DoubleType::operator-=(double RHS)
+{
+    *value -= RHS;
+    return *this;
+}
+
+DoubleType& DoubleType::operator*=(double RHS)
+{
+    *value *= RHS;
+    return *this;
+}
+
+DoubleType& DoubleType::operator/=(double RHS)
+{
+    if (RHS == 0.0)
+    {
+        std::cout << "Trying to divide by 0" << std::endl; 
+    }
+    *value /= RHS;
     return *this;
 }
 
@@ -252,10 +287,15 @@ struct IntType
         value = nullptr;
     }
 
-    IntType& add(int rhs);
-    IntType& subtract(int rhs);
-    IntType& multiply(int rhs);
-    IntType& divide(int rhs);
+    // IntType& add(int rhs);
+    // IntType& subtract(int rhs);
+    // IntType& multiply(int rhs);
+    // IntType& divide(int rhs);
+
+    IntType& operator+=(int RHS);
+    IntType& operator-=(int RHS);
+    IntType& operator*=(int RHS);
+    IntType& operator/=(int RHS);
 
     IntType& pow(const IntType& arg);
     IntType& pow(const DoubleType& arg);
@@ -273,25 +313,22 @@ IntType::IntType(int newInt)
 {
     value = new int(newInt);
 }
-
+/*
 IntType& IntType::add(int rhs)
 {
     *value += rhs;
     return *this;
 }
-
 IntType& IntType::subtract(int rhs)
 {
     *value -= rhs;
     return *this;
 }
-
 IntType& IntType::multiply(int rhs)
 {
     *value *= rhs;
     return *this;
 }
-
 IntType& IntType::divide(int rhs)
 {
     if (rhs != 0)
@@ -305,8 +342,39 @@ IntType& IntType::divide(int rhs)
     
     return *this;
 }
-
+*/
 //POW Function Implementations
+IntType& IntType::operator+=(int RHS)
+{
+    *value += RHS;
+    return *this;
+}
+
+IntType& IntType::operator-=(int RHS)
+{
+    *value -= RHS;
+    return *this;
+}
+
+IntType& IntType::operator*=(int RHS)
+{
+    *value *= RHS;
+    return *this;
+}
+
+IntType& IntType::operator/=(int RHS)
+{
+    if (RHS != 0)
+    {
+        *value /= RHS;
+    }
+    else 
+    {
+        std::cout << "Math Error: Tried to Divide by zero!" << std::endl; 
+    }
+
+    return *this;
+}
 
 FloatType& FloatType::powInternal(float arg)
 {
@@ -424,53 +492,13 @@ void Point::toString()
 #include <iostream>
 int main()
 {
-    /* //POW Examples 
-    DoubleType dt1(3.5);
-    DoubleType dt2(3.0);
     
-    FloatType ft1(1.7f);
-    FloatType ft2(3.2f);
-
-    IntType it1(6);
-    IntType it2(4);
-
-    std::cout << "6 ^ 3.0: " << it1.pow(dt2) << std::endl;
-    std::cout << "1.7f ^ 3.5: " << ft1.pow(dt1) << std::endl;
-    std::cout << "4 ^ 3.2f: " << it2.pow(ft2) << std::endl;
-
-    IntType it3(56);
-    IntType it4(6);
-    IntType it5(7);
-
-    DoubleType dt3(5.6);
-    DoubleType dt4(7.4);
-    
-    FloatType ft3(6.7f);
-    FloatType ft4(9.4f);
-
-    Point intp(it3, it4);
-    Point dblp(dt3, dt4);
-    Point fltp(ft3, ft4);
-
-    intp.toString();
-    intp.multiply(ft2);
-    intp.toString();
-
-    dblp.toString();
-    dblp.multiply(it5);
-    dblp.toString();
-
-    fltp.toString();
-    fltp.multiply(dt1);
-    fltp.toString();
-    */
     DoubleType dt1(3.5);
     DoubleType dt2(3.0);
     DoubleType dt3(-2.5);
     DoubleType dt4(7.2);
     //std::cout << "(((3.5 + 3.0) * -2.5) / 7.2) = " << dt1.add(dt2).multiply(dt3).divide(dt4)<< std::endl;
     //dt1 += 3.0;
-
     
     FloatType ft1(1.7f);
     FloatType ft2(3.0f);
