@@ -27,7 +27,7 @@ Do not delete your previous main.
          add some in and fix the build errors that might result via the techniques you have learned in the previous weeks (hint: casting)
          i.e.
  */
-#if false
+/*#if false
 namespace Example
 {
     int main()
@@ -42,7 +42,7 @@ namespace Example
             intNum.add(3).add(4.5f).divide(floatNum); 
 
         it should become:
-        */
+        //* /
         intNum += 3;
         intNum += 4.5f;
         intNum /= floatNum;
@@ -51,7 +51,7 @@ namespace Example
         return 0;
     }
 }
-#endif
+#endif*/
  /*
  6) compile/link/run to make sure you don't have any errors
  
@@ -108,6 +108,11 @@ struct FloatType
     FloatType& subtract(float rhs);
     FloatType& multiply(float rhs);
     FloatType& divide(float rhs);
+
+    FloatType& operator+=(float RHS);
+    FloatType& operator-=(float RHS);
+    FloatType& operator*=(float RHS);
+    FloatType& operator/=(float RHS);
     
     FloatType& pow(const FloatType& arg);
     FloatType& pow(const IntType& arg);
@@ -126,6 +131,30 @@ FloatType::FloatType(float newFloat)
     value = new float(newFloat);
 }
 
+FloatType& FloatType::operator+=(float RHS)
+{
+    *value += RHS;
+    return *this;
+}
+
+FloatType& FloatType::operator-=(float RHS)
+{
+    *value -= RHS;
+    return *this;
+}
+
+FloatType& FloatType::operator*=(float RHS)
+{
+    *value *= RHS;
+    return *this;
+}
+
+FloatType& FloatType::operator/=(float RHS)
+{
+    *value /= RHS;
+    return *this;
+}
+/*
 FloatType& FloatType::add(float rhs)
 {
     *value += rhs;
@@ -152,8 +181,7 @@ FloatType& FloatType::divide(float rhs)
     }
     *value /= rhs;
     return *this;
-}
-
+} */
 struct DoubleType
 {
     DoubleType(double); 
