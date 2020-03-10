@@ -491,26 +491,38 @@ void Point::toString()
 
 #include <iostream>
 int main()
-{
-    
+{   
     DoubleType dt1(3.5);
     DoubleType dt2(3.0);
     DoubleType dt3(-2.5);
     DoubleType dt4(7.2);
     //std::cout << "(((3.5 + 3.0) * -2.5) / 7.2) = " << dt1.add(dt2).multiply(dt3).divide(dt4)<< std::endl;
     //dt1 += 3.0;
+    dt1 /= dt2;
+    dt3 *= dt4;
+    std::cout << "dt1: " << dt1 << " dt2: " << dt2 << std::endl;
     
     FloatType ft1(1.7f);
     FloatType ft2(3.0f);
     FloatType ft3(2.0f);
     //std::cout << ft1 << "f + 3.0f = " << ft1.add(ft2) << "f * 2.0f = ";
     //std::cout << ft1.multiply(ft3) << "f.\n";
-    ft1 += 2.0f;
-    ft2 += ft3;
+    ft1 -= 2.0f;
+    ft2 /= ft3;
     std::cout << "ft1:  " << ft1 << " ft2: " << ft2 << std::endl;
 
     IntType it1(6);
     IntType it2(6);
     IntType it3(47);
     //std::cout << "(" << it3 << " / 6) * 6 = " << it3.divide(it2).multiply(it1) << std::endl;
-}
+    it1 *= it2;
+    it3 += -25;
+    std::cout << "it1: " << it1 << " it3: " << it3 << std::endl;
+
+    dt3 += it1;
+    std::cout << "dt3 += it1: " << dt3 << std::endl;
+    ft1 /= static_cast<float>(dt2);
+    std::cout << "ft1 /= dt2: " << ft1 << std::endl;
+    it3 *= static_cast<int>(ft2);
+    std::cout << "it3 *= ft2: " << it3 << std::endl;
+} 
